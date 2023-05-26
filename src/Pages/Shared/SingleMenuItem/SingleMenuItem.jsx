@@ -7,7 +7,7 @@ const SingleMenuItem = ({item}) => {
     return (
         <div className='flex items-center gap-x-5 justify-center'>
             <img style={{borderRadius : '0 200px 200px 200px'}} className='w-28' src= {image} alt="" />
-            <div>
+            <div className='w-1/2'>
                 <h3 className='text-xl uppercase'>{name}------------</h3>
                 <p>{recipe}</p>
             </div>
