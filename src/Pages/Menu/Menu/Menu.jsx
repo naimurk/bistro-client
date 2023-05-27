@@ -29,6 +29,7 @@ const Menu = () => {
                 title='our menu'
                 img={menuBg}
                 items = {offered}
+                category = {'offered'}
              ></MenuCategory>
 
             {/* dessert part 2 */}
@@ -36,13 +37,15 @@ const Menu = () => {
                 title='Dessert'
                 img={dessertImg}
                 items = {dessert}
+                category = {'dessert'}
              ></MenuCategory>
 
             {/* pizza part 3 */}
             <MenuCategory
-                title='our menu'
+                title='pizza'
                 img={pizzaImg}
                 items = {pizza}
+                category = {'pizza'}
              ></MenuCategory>
 
             {/* salad part 4 */}
@@ -50,6 +53,7 @@ const Menu = () => {
                 title='Salads'
                 img={saladImg}
                 items = {salad}
+                category = {'salad'}
              ></MenuCategory>
              
             {/* soup part 5 */}
@@ -57,6 +61,7 @@ const Menu = () => {
                 title='soup'
                 img={soupImg}
                 items = {soup}
+                category = {'soup'}
              ></MenuCategory>
              
         </div>

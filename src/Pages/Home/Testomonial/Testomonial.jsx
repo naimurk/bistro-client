@@ -11,7 +11,7 @@ import icon from '../../../assets/icon/quote.png'
 const Testomonial = () => {
     const [reviews, setReviews] = useState([])
     useEffect(() => {
-        fetch('testimonial.json')
+        fetch('http://localhost:5000/reviews')
             .then(res => res.json())
             .then(data => setReviews(data))
     }, [])
