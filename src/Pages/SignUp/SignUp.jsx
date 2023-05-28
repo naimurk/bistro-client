@@ -6,8 +6,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
-    const {createUser,logOut} = useContext(AuthContext)
-    const { register, handleSubmit,  formState: { errors } } = useForm();
+    const { createUser, logOut, UserUpdateProfile } = useContext(AuthContext)
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/login";
@@ -16,16 +16,26 @@ const SignUp = () => {
     const onSubmit = data => {
         // console.log(data)
         createUser(data.email, data.password)
-        .then(result => {
-            const user = result.user;
-            console.log(user);
-            logOut()
-            .then(()=> {})
-            .catch(error => console.log(error))
-            Swal.fire('Created Account successfully ')
+            .then(result => {
+                const user = result.user;
+                console.log(user);
 
-        })
-        navigate(from, { replace: true });
+                // update function call here 
+                UserUpdateProfile(data.name, data.photo)
+                    .then(() => {
+                        reset();
+                        // login function call here 
+                        logOut()
+                            .then(() => { })
+                            .catch(error => console.log(error))
+                        Swal.fire('Created Account successfully ')
+                        navigate(from, { replace: true });
+                    })
+                
+
+
+            })
+        
     };
 
 
@@ -45,8 +55,16 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="text"  {...register("name",{ required: true })} name="name" placeholder="name" className="input input-bordered" />
+                            <input type="text"  {...register("name", { required: true })} name="name" placeholder="name" className="input input-bordered" />
                             {errors.name && <span className="text-red-500">name is required</span>}
+                        </div>
+                        {/* field photo url */}
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Photo url</span>
+                            </label>
+                            <input type="text"  {...register("photo", { required: true })}  placeholder="name" className="input input-bordered" />
+                            {errors.photo && <span className="text-red-500">photo url is required</span>}
                         </div>
 
                         {/* field 2*/}
@@ -54,7 +72,7 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email"  {...register("email" , {required: true})} name="email" placeholder="email" className="input input-bordered" />
+                            <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
                             {errors.email && <span className="text-red-500">email is required</span>}
                         </div>
 
@@ -63,10 +81,10 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password"  {...register("password",{ 
-                                minLength : 8
+                            <input type="password"  {...register("password", {
+                                minLength: 8
                                 // pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])$/
-                             })} name="password" placeholder="password" className="input input-bordered" />
+                            })} name="password" placeholder="password" className="input input-bordered" />
                             {errors.password?.type === 'minLength' && <p >password must have special </p>}
 
                         </div>
@@ -80,7 +98,7 @@ const SignUp = () => {
 
 
                     </form>
-                    
+
                 </div>
             </div>
         </div>
