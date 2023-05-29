@@ -1,30 +1,39 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import useCart from "../../../hooks/useCart";
 
 
 const Navbar = () => {
 
- const {user, logOut} = useContext(AuthContext)  ;
- const handleLogout = () => {
-    logOut()
-    .then(()=> {})
-    .catch(error => console.log(error))
- }  
+    const { user, logOut } = useContext(AuthContext);
+    const [carts] = useCart();
+    const handleLogout = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.log(error))
+    }
     const navOptions = <>
-        
+
         <li><Link to={'/'} >Home</Link></li>
         <li><Link to={'/menu'} >Menu</Link></li>
         <li><Link to={'/order/salad'} >Order Food</Link></li>
-        
+        <li>
+            <Link to={'/'} ><button className="btn gap-2">
+                Inbox
+                <div className="badge badge-secondary">{carts ?  carts.length : 0}</div>
+            </button></Link>
+        </li>
+
+
 
         {
             user ? <>
-            <button onClick={handleLogout} className="btn btn-ghost">log Out</button></> 
-            :
-             <><li><Link to={'/login'} >login</Link></li></>
+                <button onClick={handleLogout} className="btn btn-ghost">log Out</button></>
+                :
+                <><li><Link to={'/login'} >login</Link></li></>
         }
-        
+
     </>
     return (
         <div className="navbar fixed z-10 bg-opacity-40 text-white bg-black">
