@@ -8,6 +8,8 @@ import Menu from "../Pages/Menu/Menu/Menu";
 import OrderFood from "../Pages/order/order_Food/OrderFood";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
+import Dashboard from "../layout/Dashboard/Dashboard/Dashboard";
+import Mycart from "../layout/Dashboard/MyCart/Mycart";
 // import PrivateRoute from "./PrivateRoute";
 
 
@@ -39,4 +41,14 @@ import SignUp from "../Pages/SignUp/SignUp";
         }
       ]
     },
+    {
+      path : 'dashboard',
+      element : <Dashboard></Dashboard>,
+      children : [
+        {
+          path : 'mycart',
+          element : <Mycart></Mycart>
+        }
+      ]
+    }
   ]);

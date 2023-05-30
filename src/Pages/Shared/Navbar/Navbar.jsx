@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import {BsFillCartCheckFill} from 'react-icons/bs';
 import useCart from "../../../hooks/useCart";
 
 
@@ -19,8 +20,8 @@ const Navbar = () => {
         <li><Link to={'/menu'} >Menu</Link></li>
         <li><Link to={'/order/salad'} >Order Food</Link></li>
         <li>
-            <Link to={'/'} ><button className="btn gap-2">
-                Inbox
+            <Link to={'/dashboard/mycart'} ><button className="btn gap-2">
+                <BsFillCartCheckFill></BsFillCartCheckFill>
                 <div className="badge badge-secondary">{carts ?  carts.length : 0}</div>
             </button></Link>
         </li>
