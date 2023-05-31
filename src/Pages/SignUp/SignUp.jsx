@@ -1,5 +1,5 @@
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -7,50 +7,72 @@ import Swal from "sweetalert2";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
+    const [allUser , setAllUser] = useState([])
     const { createUser, logOut, UserUpdateProfile } = useContext(AuthContext)
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/login";
-
+    useEffect(()=> {
+        fetch('http://localhost:5000/all-users')
+        .then(res => res.json())
+        .then(data => setAllUser(data) )
+    },[])
+    
+    // console.log(allUser.email);
 
     const onSubmit = data => {
         // console.log(data)
+        const person = allUser.find(s => s.email === data.email)
+       if (person?.email) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Email already used!',
+            text: '',
+            
+          })
+       }
+       else {
+             
         createUser(data.email, data.password)
-            .then(result => {
-                const user = result.user;
-                console.log(user);
+        .then(result => {
+            const user = result.user;
+            console.log(user);
 
-                // update function call here 
-                UserUpdateProfile(data.name, data.photo)
-                    .then(() => {
-                        const saveUser = { name: data.name, email: data.email }
-                        fetch('http://localhost:5000/users', {
-                            method: "POST",
-                            headers: {
-                                'content-type': "application/json"
-                            },
-                            body: JSON.stringify(saveUser)
-                        })
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data.insertedId) {
-                                    reset();
-                                    // login function call here 
-                                    logOut()
-                                        .then(() => { })
-                                        .catch(error => console.log(error))
-                                    Swal.fire('Created Account successfully ')
-                                    navigate(from, { replace: true });
-
-                                }
-                            })
-
+            // update function call here 
+            UserUpdateProfile(data.name, data.photo)
+                .then(() => {
+                    const saveUser = { name: data.name, email: data.email }
+                    fetch('http://localhost:5000/users', {
+                        method: "POST",
+                        headers: {
+                            'content-type': "application/json"
+                        },
+                        body: JSON.stringify(saveUser)
                     })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.insertedId) {
+                                reset();
+                                // login function call here 
+                                logOut()
+                                    .then(() => { })
+                                    .catch(error => console.log(error))
+                                Swal.fire('Created Account successfully ')
+                                navigate(from, { replace: true });
+
+                            }
+                        })
+
+                })
 
 
 
-            })
+        })
+
+
+       }
+        
 
     };
 

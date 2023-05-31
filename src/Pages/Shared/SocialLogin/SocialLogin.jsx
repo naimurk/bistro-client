@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 
 const SocialLogin = () => {
     const { googleSignIn } = useContext(AuthContext)
+
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";

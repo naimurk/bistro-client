@@ -11,6 +11,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Dashboard from "../layout/Dashboard/Dashboard/Dashboard";
 import Mycart from "../layout/Dashboard/MyCart/Mycart";
 import PrivateRoute from "./PrivateRoute";
+import AllUser from "../layout/Dashboard/AllUser/AllUser";
 // import PrivateRoute from "./PrivateRoute";
 
 
@@ -44,12 +45,16 @@ import PrivateRoute from "./PrivateRoute";
     },
     {
       path : 'dashboard',
-      element : <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+      element : <Dashboard></Dashboard>,
       children : [
         {
-          path : 'mycart',
+          path : 'my-cart',
           element : <Mycart></Mycart>
-        }
+        },
+        {
+          path : 'all-users',
+          element : <AllUser></AllUser>
+        },
       ]
     }
   ]);

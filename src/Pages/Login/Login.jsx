@@ -11,6 +11,7 @@ const Login = () => {
     const [disable , setDisable] = useState(true)
 
    const {signIn} = useContext(AuthContext)
+//    console.log(auth);
    const navigate = useNavigate();
    const location = useLocation();
    let from = location.state?.from?.pathname || "/";
