@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
     const { createUser, logOut, UserUpdateProfile } = useContext(AuthContext)
@@ -23,19 +24,34 @@ const SignUp = () => {
                 // update function call here 
                 UserUpdateProfile(data.name, data.photo)
                     .then(() => {
-                        reset();
-                        // login function call here 
-                        logOut()
-                            .then(() => { })
-                            .catch(error => console.log(error))
-                        Swal.fire('Created Account successfully ')
-                        navigate(from, { replace: true });
+                        const saveUser = { name: data.name, email: data.email }
+                        fetch('http://localhost:5000/users', {
+                            method: "POST",
+                            headers: {
+                                'content-type': "application/json"
+                            },
+                            body: JSON.stringify(saveUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    reset();
+                                    // login function call here 
+                                    logOut()
+                                        .then(() => { })
+                                        .catch(error => console.log(error))
+                                    Swal.fire('Created Account successfully ')
+                                    navigate(from, { replace: true });
+
+                                }
+                            })
+
                     })
-                
+
 
 
             })
-        
+
     };
 
 
@@ -63,7 +79,7 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Photo url</span>
                             </label>
-                            <input type="text"  {...register("photo", { required: true })}  placeholder="name" className="input input-bordered" />
+                            <input type="text"  {...register("photo", { required: true })} placeholder="name" className="input input-bordered" />
                             {errors.photo && <span className="text-red-500">photo url is required</span>}
                         </div>
 
@@ -98,6 +114,8 @@ const SignUp = () => {
 
 
                     </form>
+
+                    <SocialLogin></SocialLogin>
 
                 </div>
             </div>

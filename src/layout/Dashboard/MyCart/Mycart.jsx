@@ -84,7 +84,7 @@ const Mycart = () => {
 
                                 </td>
                                 <td>{item.price}</td>
-                                <td><button onClick={() => handleDelete(item)} className="btn btn-sm rounded-full"><AiTwotoneDelete></AiTwotoneDelete></button></td>
+                                <td><button onClick={() => handleDelete(item)} className="btn btn-md border-0 bg-red-500 rounded-full"><AiTwotoneDelete></AiTwotoneDelete></button></td>
 
                             </tr>)
                         }
