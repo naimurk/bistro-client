@@ -7,12 +7,15 @@ import { ImSpoonKnife } from 'react-icons/im';
 import { TfiMenuAlt} from 'react-icons/tfi';
 import { AiFillBook} from 'react-icons/ai';
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
 
 
 
 const Dashboard = () => {
     const [carts] = useCart();
     const admin = true;
+    const [isAdmin] = useAdmin()
+    console.log(isAdmin);
     return (
         <div className="drawer drawer-mobile">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

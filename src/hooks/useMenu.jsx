@@ -6,7 +6,7 @@ const useMenu = () => {
         .then(res=> res.json())
         .then(data => {
             // const offered = data.filter(item => item.category == "popular")
-            setMenu(data)
+          data &&  setMenu(data)
         } )
     },[])
     return [menu]
