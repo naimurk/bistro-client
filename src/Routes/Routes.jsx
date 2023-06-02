@@ -10,8 +10,10 @@ import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import Dashboard from "../layout/Dashboard/Dashboard/Dashboard";
 import Mycart from "../layout/Dashboard/MyCart/Mycart";
-import PrivateRoute from "./PrivateRoute";
+// import PrivateRoute from "./PrivateRoute";
 import AllUser from "../layout/Dashboard/AllUser/AllUser";
+import Additem from "../layout/Dashboard/AddItem/Additem";
+import AdminRoute from "./AdminRoute";
 // import PrivateRoute from "./PrivateRoute";
 
 
@@ -53,7 +55,11 @@ import AllUser from "../layout/Dashboard/AllUser/AllUser";
         },
         {
           path : 'all-users',
-          element : <AllUser></AllUser>
+          element : <AdminRoute><AllUser></AllUser></AdminRoute>
+        },
+        {
+          path : 'add-item',
+          element : <AdminRoute><Additem></Additem></AdminRoute>
         },
       ]
     }

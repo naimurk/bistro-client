@@ -1,12 +1,22 @@
+import { useContext, useState } from "react";
 import useCart from "../../../hooks/useCart";
 import { AiTwotoneDelete } from 'react-icons/ai';
 import Swal from 'sweetalert2'
+import { AuthContext } from "../../../Provider/AuthProvider";
+import useAdmin from "../../../hooks/useAdmin";
 
 
 const Mycart = () => {
     const [carts, refetch] = useCart()
+    const [total , setTotal]= useState(0)
+    const {loading,user } = useContext(AuthContext)
+    const {isLoading}= useAdmin()
+    if(loading && user?.email && isLoading){
+        const total = carts && carts.reduce((sum, item) => sum + item.price, 0);
+        setTotal(total)
+    }
     //  console.log(carts);
-    const total = carts && carts.reduce((sum, item) => sum + item.price, 0)
+    
 
 
     const handleDelete = (item) => {
@@ -62,7 +72,7 @@ const Mycart = () => {
                         {/* row 1 */}
 
                         {
-                            carts.map((item, index) => <tr
+                         (loading && carts && isLoading)  &&  carts.map((item, index) => <tr
                                 key={item._id}
                             >
                                 <th>

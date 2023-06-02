@@ -13,9 +13,10 @@ import useAdmin from "../../../hooks/useAdmin";
 
 const Dashboard = () => {
     const [carts] = useCart();
-    const admin = true;
+    // const admin = true;
     const [isAdmin] = useAdmin()
-    console.log(isAdmin);
+    // const {admin} = isAdmin;
+    // console.log(admin);
     return (
         <div className="drawer drawer-mobile">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -31,7 +32,7 @@ const Dashboard = () => {
                 <ul className="menu p-4 w-80 bg-yellow-500 text-base-content">
                        
               {
-                admin ? <>
+                isAdmin?.admin ? <>
                 {/* <!-- Sidebar content here --> */}
                 <li><NavLink to={'/userhome'}><FaHome></FaHome>Home</NavLink></li>
                     <li><NavLink to={'reservation'}><ImSpoonKnife></ImSpoonKnife>Add item</NavLink></li>
