@@ -7,12 +7,14 @@ import useAdmin from "../../../hooks/useAdmin";
 
 
 const Mycart = () => {
-    const [carts, refetch] = useCart()
-    const [total , setTotal]= useState(0)
-    const {loading,user } = useContext(AuthContext)
-    const {isLoading}= useAdmin()
+    // const [allCart , setAllCart]=useState([])
+    const [carts, refetch] = useCart();
+    const [total , setTotal]= useState(0);
+    const {loading,user } = useContext(AuthContext);
+    const {isLoading}= useAdmin();
     if(loading && user?.email && isLoading){
         const total = carts && carts.reduce((sum, item) => sum + item.price, 0);
+        // setAllCart(carts)
         setTotal(total)
     }
     //  console.log(carts);
@@ -72,7 +74,7 @@ const Mycart = () => {
                         {/* row 1 */}
 
                         {
-                         (loading && carts && isLoading)  &&  carts.map((item, index) => <tr
+                        user &&  carts.map((item, index) => <tr
                                 key={item._id}
                             >
                                 <th>
