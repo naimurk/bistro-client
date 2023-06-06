@@ -2,23 +2,25 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import useCart from "../../../hooks/useCart";
 import { AuthContext } from "../../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 
 const Checkout = () => {
     const stripe = useStripe();
     const elements = useElements();
-    const {user } = useContext(AuthContext)
+    const {user,loading } = useContext(AuthContext)
     const [errorP, setErrorP] = useState('')
-    const [carts] = useCart();
+    const [carts,refetch] = useCart();
     const [clientSecret, setClientSecret] = useState("");
     const [processing , setProcessing] = useState(false)
     const total = user && carts.reduce((sum, item) => sum + item.price, 0);
     const price = parseFloat(total?.toFixed(2));
+    const [message , setMessage] = useState('')
     // console.log(price);
     const token = localStorage.getItem('access-token')
 
     useEffect(() => {
-        if(price){
+        if(price > 0){
             fetch('http://localhost:5000/create-payment-intent', {
                 method: 'POST',
                 headers: {
@@ -31,7 +33,7 @@ const Checkout = () => {
                 .then(data => setClientSecret(data.clientSecret))
                 .catch(error => console.error(error));
         }
-      }, [price]);
+      }, [price,loading]);
       
 
 
@@ -53,6 +55,13 @@ const Checkout = () => {
         if (card == null) {
             return;
         }
+
+        if (!clientSecret) {
+            
+            console.error("Invalid client secret");
+            return;
+        }
+        console.log("Client Secret:", clientSecret);
         
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
@@ -88,14 +97,20 @@ const Checkout = () => {
         console.log( 'payment intent',paymentIntent);
         
        if(paymentIntent?.status === 'succeeded'){
+        setProcessing(true)
+        
+        setMessage(`thank for purchasing. your transaction Id : ${paymentIntent.id}`)
+        
         // alert('congratulation')
         const payment = { 
             name : user?.name,
             email : user?.email,
+            data : new Date(),
             transaction: paymentIntent?.id,
-            total_item : carts.length  ,
-            itemNames : carts.map(item => item.name),
-            itemId : carts.map(item => item._id),
+            total_item : carts?.length  ,
+            itemNames : user && carts?.map(item => item.name),
+            itemId : user && carts?.map(item => item._id),
+            foodId : user && carts?.map(item => item.foodId)
             
             
         }
@@ -108,7 +123,14 @@ const Checkout = () => {
             body : JSON.stringify(payment)
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            if(data.result.insertedId ){
+                refetch();
+                
+            }
+            
+        })
+        
        }
 
     }
@@ -141,11 +163,12 @@ const Checkout = () => {
                         },
                     }}
                 />
-                <button className="btn btn-primary mt-3" type="submit" disabled={!stripe }>
+                <button className="btn btn-primary mt-3" type="submit" disabled={!stripe || !clientSecret || processing}>
                     Pay
                 </button>
             </form>
             <p>{errorP && errorP}</p>
+            <p>{message && message}</p>
         </div>
     );
 };

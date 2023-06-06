@@ -39,7 +39,7 @@ const Dashboard = () => {
               {
                  isAdmin?.admin ? <>
                 {/* <!-- Sidebar content here --> */}
-                <li><NavLink to={'/userhome'}><FaHome></FaHome>Home</NavLink></li>
+                <li><NavLink to={'/'}><FaHome></FaHome>Home</NavLink></li>
                     <li><NavLink to={'/dashboard/add-item'}><ImSpoonKnife></ImSpoonKnife>Add item</NavLink></li>
                     <li><NavLink to={'/dashboard/manage-item'}><TfiMenuAlt></TfiMenuAlt>Manage Item</NavLink></li>
                     <li><NavLink to={'/dashboard/payment'} ><BsFillCartCheckFill></BsFillCartCheckFill>Manage Booking </NavLink></li>
