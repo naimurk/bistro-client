@@ -29,6 +29,7 @@ const AllUser = () => {
                             <th>Email</th>
                             <th>Role</th>
                             <th>Action</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,6 +44,8 @@ const AllUser = () => {
                                 <td>{user.email}</td>
                                 <td>{user.role == 'Admin' ? 'Admin' : <button onClick={()=> handleMakeAdmin(user._id)}  className="btn border-0 btn-md bg-yellow-500 rounded-sm"><FaUserLock></FaUserLock></button> }</td>
                                 <td><button className="btn btn-md bg-red-500 border-0  rounded-lg"><AiFillDelete></AiFillDelete></button></td>
+                                {/* to do  delete option */}
+                                <th><button className="btn btn-primary btn-xs" >Delete</button></th>
                             </tr>)
                         }
                         

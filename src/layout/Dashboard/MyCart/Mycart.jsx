@@ -4,6 +4,7 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import Swal from 'sweetalert2'
 import { AuthContext } from "../../../Provider/AuthProvider";
 import useAdmin from "../../../hooks/useAdmin";
+import { Link } from "react-router-dom";
 
 
 const Mycart = () => {
@@ -56,7 +57,8 @@ const Mycart = () => {
             <div className="flex justify-between gap-x-24 ">
                 <h1 className="text-3xl">items you have added : {carts.length}</h1>
                 <h1 className="text-3xl">Total price{total}</h1>
-                <button className="btn btn-warning">pay</button>
+                <Link to={'/dashboard/payment'}><button className="btn btn-warning">pay</button></Link>
+                {/* <Link to = '/payment-method'> clikc here</Link> */}
             </div>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">

@@ -15,6 +15,8 @@ import AllUser from "../layout/Dashboard/AllUser/AllUser";
 import Additem from "../layout/Dashboard/AddItem/Additem";
 import AdminRoute from "./AdminRoute";
 import ManageItem from "../layout/Dashboard/ManageItem/ManageItem";
+import Payment from "../layout/Dashboard/Payment/Payment";
+
 // import PrivateRoute from "./PrivateRoute";
 
 
@@ -66,6 +68,12 @@ import ManageItem from "../layout/Dashboard/ManageItem/ManageItem";
           path : 'manage-item',
           element : <ManageItem></ManageItem>
         },
+       
+        {
+          path : 'payment',
+          element : <Payment></Payment>
+        }
+       
       ]
     }
   ]);

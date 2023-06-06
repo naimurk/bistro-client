@@ -77,6 +77,7 @@ const ManageItem = () => {
             </td>
             <td className="">${item.price}</td>
             <th>
+                {/* to do  update option */}
               <button className="btn btn-primary btn-xs">update</button>
             </th>
             <th>

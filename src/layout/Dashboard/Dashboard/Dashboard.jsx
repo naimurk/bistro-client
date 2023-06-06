@@ -42,7 +42,7 @@ const Dashboard = () => {
                 <li><NavLink to={'/userhome'}><FaHome></FaHome>Home</NavLink></li>
                     <li><NavLink to={'/dashboard/add-item'}><ImSpoonKnife></ImSpoonKnife>Add item</NavLink></li>
                     <li><NavLink to={'/dashboard/manage-item'}><TfiMenuAlt></TfiMenuAlt>Manage Item</NavLink></li>
-                    <li><NavLink to={'/dashboard/'} ><BsFillCartCheckFill></BsFillCartCheckFill>Manage Booking </NavLink></li>
+                    <li><NavLink to={'/dashboard/payment'} ><BsFillCartCheckFill></BsFillCartCheckFill>Manage Booking </NavLink></li>
                     <li><NavLink to={'/dashboard/all-users'} ><AiFillBook></AiFillBook>All user</NavLink></li>
                     <li><NavLink to={'/dashboard/my-cart'} ><BsFillCartCheckFill></BsFillCartCheckFill>My Cart <span className="btn btn-xs bg-red-600">{carts.length}</span>  </NavLink></li>
                 </> :
@@ -50,7 +50,7 @@ const Dashboard = () => {
                 {/* <!-- Sidebar content here --> */}
                 <li><NavLink to={'/userhome'}><FaHome></FaHome>Home</NavLink></li>
                     <li><NavLink to={'reservation'}><FaRegCalendarAlt></FaRegCalendarAlt>Reservation</NavLink></li>
-                    <li><NavLink to={'payment-history'}><GiWallet></GiWallet>Payment History</NavLink></li>
+                    <li><NavLink to={'payment'}><GiWallet></GiWallet>Payment History</NavLink></li>
                     <li><NavLink to={'/dashboard/my-cart'} ><BsFillCartCheckFill></BsFillCartCheckFill>My Cart <span className="btn btn-xs bg-red-600">{carts.length}</span>  </NavLink></li>
                 </>
               }
